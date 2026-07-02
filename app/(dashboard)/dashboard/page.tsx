@@ -66,7 +66,7 @@ export default function DashboardPage() {
     <motion.div variants={container} initial="hidden" animate="show" className="space-y-6">
       <motion.div variants={item}>
         <h1 className="text-2xl font-bold text-slate-900">
-          Welcome back, <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">{user?.name?.split(" ")[0]}</span>
+          Welcome back, <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">{user?.name?.split(" ")?.[0] || ""}</span>
         </h1>
         <p className="text-slate-500 mt-1">Here&apos;s what&apos;s happening across your projects today.</p>
       </motion.div>

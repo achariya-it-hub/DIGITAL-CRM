@@ -34,7 +34,12 @@ yarn-error.log*
 .env*
 
 # vercel
+
 .vercel
+
+# hostinger deploy artifacts
+/hostinger-deploy/
+/digital-crm-hostinger.zip
 
 # typescript
 *.tsbuildinfo
@@ -43,3 +48,5 @@ next-env.d.ts
 /lib/generated/prisma
 /dev.db
 /prisma/dev.db
+
+.vercel

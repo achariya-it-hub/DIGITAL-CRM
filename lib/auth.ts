@@ -1,34 +1,11 @@
-import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
+import { signToken, verifyToken, COOKIE_NAME } from "./jwt";
+import type { JWTPayload } from "./jwt";
 
-const SECRET = new TextEncoder().encode(process.env.JWT_SECRET || "digital-crm-secret-key-2025");
-const COOKIE_NAME = "crm-token";
+export { signToken, verifyToken, COOKIE_NAME };
+export type { JWTPayload };
 
-export interface JWTPayload {
-  id: string;
-  email: string;
-  name: string;
-  avatar?: string;
-  role: string;
-}
-
-export async function signToken(payload: JWTPayload): Promise<string> {
-  return new SignJWT(payload as any)
-    .setProtectedHeader({ alg: "HS256" })
-    .setIssuedAt()
-    .setExpirationTime("7d")
-    .sign(SECRET);
-}
-
-export async function verifyToken(token: string): Promise<JWTPayload | null> {
-  try {
-    const { payload } = await jwtVerify(token, SECRET);
-    return payload as unknown as JWTPayload;
-  } catch {
-    return null;
-  }
-}
 
 export async function getUser(): Promise<JWTPayload | null> {
   const cookieStore = await cookies();
@@ -45,4 +22,3 @@ export async function authenticate(email: string, password: string): Promise<JWT
   return null;
 }
 
-export { COOKIE_NAME };
