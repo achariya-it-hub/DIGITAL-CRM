@@ -119,7 +119,7 @@ export default function DashboardPage() {
                     </div>
                   </div>
                   <div className="flex -space-x-2">
-                    {members.filter((m) => project.memberIds.includes(m.id)).slice(0, 3).map((m) => (
+                    {members.filter((m) => project.memberIds?.includes(m.id)).slice(0, 3).map((m) => (
                       <Avatar key={m.id} className="h-7 w-7 ring-2 ring-white">
                         <AvatarImage src={m.avatar} />
                         <AvatarFallback className="text-[10px] bg-slate-100">{initials(m.name)}</AvatarFallback>

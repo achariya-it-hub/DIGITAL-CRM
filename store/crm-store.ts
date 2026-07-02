@@ -40,10 +40,10 @@ export const useCRMStore = create<CRMStore>()((set, get) => ({
   load: async () => {
     const [members, projects, milestones, tasks, meetings, activities] = await Promise.all([
       fetch("/api/members").then((r) => r.json()),
-      fetch("/api/projects").then((r) => r.json()),
+      fetch("/api/projects").then((r) => r.json()).then(projects => projects.map((p: any) => ({ ...p, memberIds: p.members?.map((m: any) => m.userId) || p.memberIds || [] }))),
       fetch("/api/milestones").then((r) => r.json()),
       fetch("/api/tasks").then((r) => r.json()),
-      fetch("/api/meetings").then((r) => r.json()),
+      fetch("/api/meetings").then((r) => r.json()).then(meetings => meetings.map((m: any) => ({ ...m, participantIds: m.participants?.map((p: any) => p.userId) || m.participantIds || [] }))),
       fetch("/api/activities").then((r) => r.json()),
     ]);
     set({ members, projects, milestones, tasks, meetings, activities });
