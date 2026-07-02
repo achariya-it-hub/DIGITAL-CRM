@@ -14,7 +14,7 @@ async function verifyToken(token: string): Promise<boolean> {
   }
 }
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { nextUrl } = req;
   const token = req.cookies.get("crm-token")?.value;
   const isLoggedIn = token ? await verifyToken(token) : false;
